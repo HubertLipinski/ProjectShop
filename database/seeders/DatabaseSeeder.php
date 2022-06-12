@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,10 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Artisan::call('orchid:admin', [
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
-            'password' => 'password',
+        $this->call([
+            RoleSeeder::class,
+            UserSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();
