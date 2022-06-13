@@ -28,6 +28,17 @@ class PlatformProvider extends OrchidServiceProvider
     public function registerMainMenu(): array
     {
         return [
+            Menu::make(__('Users'))
+                ->icon('user')
+                ->route('platform.systems.users')
+                ->permission('platform.systems.users')
+                ->title(__('Access rights')),
+
+            Menu::make(__('Roles'))
+                ->icon('lock')
+                ->route('platform.systems.roles')
+                ->permission('platform.systems.roles'),
+
             Menu::make('Example screen')
                 ->icon('monitor')
                 ->route('platform.example')
@@ -56,43 +67,32 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('list')
                 ->route('platform.example.editors'),
 
-            Menu::make('Overview layouts')
-                ->title('Layouts')
-                ->icon('layers')
-                ->route('platform.example.layouts'),
-
-            Menu::make('Chart tools')
-                ->icon('bar-chart')
-                ->route('platform.example.charts'),
-
-            Menu::make('Cards')
-                ->icon('grid')
-                ->route('platform.example.cards')
-                ->divider(),
-
-            Menu::make('Documentation')
-                ->title('Docs')
-                ->icon('docs')
-                ->url('https://orchid.software/en/docs'),
-
-            Menu::make('Changelog')
-                ->icon('shuffle')
-                ->url('https://github.com/orchidsoftware/platform/blob/master/CHANGELOG.md')
-                ->target('_blank')
-                ->badge(function () {
-                    return Dashboard::version();
-                }, Color::DARK()),
-
-            Menu::make(__('Users'))
-                ->icon('user')
-                ->route('platform.systems.users')
-                ->permission('platform.systems.users')
-                ->title(__('Access rights')),
-
-            Menu::make(__('Roles'))
-                ->icon('lock')
-                ->route('platform.systems.roles')
-                ->permission('platform.systems.roles'),
+//            Menu::make('Overview layouts')
+//                ->title('Layouts')
+//                ->icon('layers')
+//                ->route('platform.example.layouts'),
+//
+//            Menu::make('Chart tools')
+//                ->icon('bar-chart')
+//                ->route('platform.example.charts'),
+//
+//            Menu::make('Cards')
+//                ->icon('grid')
+//                ->route('platform.example.cards')
+//                ->divider(),
+//
+//            Menu::make('Documentation')
+//                ->title('Docs')
+//                ->icon('docs')
+//                ->url('https://orchid.software/en/docs'),
+//
+//            Menu::make('Changelog')
+//                ->icon('shuffle')
+//                ->url('https://github.com/orchidsoftware/platform/blob/master/CHANGELOG.md')
+//                ->target('_blank')
+//                ->badge(function () {
+//                    return Dashboard::version();
+//                }, Color::DARK()),
         ];
     }
 
@@ -116,7 +116,21 @@ class PlatformProvider extends OrchidServiceProvider
         return [
             ItemPermission::group(__('System'))
                 ->addPermission('platform.systems.roles', __('Roles'))
-                ->addPermission('platform.systems.users', __('Users')),
+                ->addPermission('platform.systems.users', __('Users'))
+                ->addPermission('platform.systems.products', __('Products'))
+                ->addPermission('platform.systems.categories', __('Categories')),
+
+            ItemPermission::group(__('Product'))
+                ->addPermission('platform.product.view', __('Product view'))
+                ->addPermission('platform.product.create', __('Product create'))
+                ->addPermission('platform.product.update', __('Product update'))
+                ->addPermission('platform.product.delete', __('Product delete')),
+
+            ItemPermission::group(__('Category'))
+                ->addPermission('platform.category.view', __('Category view'))
+                ->addPermission('platform.category.create', __('Category create'))
+                ->addPermission('platform.category.update', __('Category update'))
+                ->addPermission('platform.category.delete', __('Category delete')),
         ];
     }
 }

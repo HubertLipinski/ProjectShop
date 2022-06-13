@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Artisan;
+use Orchid\Platform\Models\Role;
+use Orchid\Platform\Models\User;
 
 class UserSeeder extends Seeder
 {
@@ -15,10 +15,14 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        Artisan::call('orchid:admin', [
+        $role = Role::where('slug', 'administrator')->first();
+
+        $user = User::create([
             'name' => 'Administrator',
             'email' => 'admin@admin.com',
             'password' => 'password',
         ]);
+
+        $user->roles()->attach($role->id);
     }
 }

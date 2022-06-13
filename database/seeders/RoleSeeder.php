@@ -24,17 +24,20 @@ class RoleSeeder extends Seeder
         Role::create([
             'slug' => 'moderator',
             'name' => 'Moderator',
-            'permissions' => [
-                // todo default permissions
-            ]
+            'permissions' => Dashboard::getAllowAllPermission([
+                __('Product'),
+                __('Category'),
+            ])
+                ->merge([
+                    'platform.systems.products' => true,
+                    'platform.systems.categories' => true,
+                ])
         ]);
 
         Role::create([
             'slug' => 'user',
             'name' => 'Użytkownik',
-            'permissions' => [
-                // todo default permissions
-            ]
+            'permissions' => []
         ]);
     }
 }
