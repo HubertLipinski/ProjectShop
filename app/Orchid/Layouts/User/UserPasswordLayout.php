@@ -14,7 +14,7 @@ class UserPasswordLayout extends Rows
     /**
      * Views.
      *
-     * @return Field[]
+     * @return array<Field>
      */
     public function fields(): array
     {
@@ -29,7 +29,7 @@ class UserPasswordLayout extends Rows
             Password::make('user.password')
                 ->placeholder($placeholder)
                 ->title(__('Password'))
-                ->required(!$user->exists),
+                ->required(! $user->exists),
         ];
     }
 }

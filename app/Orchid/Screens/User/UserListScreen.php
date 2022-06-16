@@ -66,7 +66,7 @@ class UserListScreen extends Screen
     /**
      * Button commands.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return iterable<\Orchid\Screen\Action>
      */
     public function commandBar(): iterable
     {
@@ -80,7 +80,7 @@ class UserListScreen extends Screen
     /**
      * Views.
      *
-     * @return string[]|\Orchid\Screen\Layout[]
+     * @return array<string>|array<\Orchid\Screen\Layout>
      */
     public function layout(): iterable
     {

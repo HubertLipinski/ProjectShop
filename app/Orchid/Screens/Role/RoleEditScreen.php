@@ -32,7 +32,7 @@ class RoleEditScreen extends Screen
     public function query(Role $role): iterable
     {
         return [
-            'role'       => $role,
+            'role' => $role,
             'permission' => $role->getStatusPermission(),
         ];
     }
@@ -60,7 +60,7 @@ class RoleEditScreen extends Screen
     /**
      * Button commands.
      *
-     * @return Action[]
+     * @return iterable<Action>
      */
     public function commandBar(): iterable
     {
@@ -79,7 +79,7 @@ class RoleEditScreen extends Screen
     /**
      * Views.
      *
-     * @return string[]|\Orchid\Screen\Layout[]
+     * @return array<string>|array<\Orchid\Screen\Layout>
      */
     public function layout(): iterable
     {

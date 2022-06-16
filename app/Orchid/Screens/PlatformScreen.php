@@ -43,7 +43,7 @@ class PlatformScreen extends Screen
     /**
      * Button commands.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return iterable<\Orchid\Screen\Action>
      */
     public function commandBar(): iterable
     {
@@ -65,7 +65,7 @@ class PlatformScreen extends Screen
     /**
      * Views.
      *
-     * @return \Orchid\Screen\Layout[]
+     * @return iterable<\Orchid\Screen\Layout>
      */
     public function layout(): iterable
     {

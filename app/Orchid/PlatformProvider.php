@@ -8,7 +8,6 @@ use Orchid\Platform\Dashboard;
 use Orchid\Platform\ItemPermission;
 use Orchid\Platform\OrchidServiceProvider;
 use Orchid\Screen\Actions\Menu;
-use Orchid\Support\Color;
 
 class PlatformProvider extends OrchidServiceProvider
 {
@@ -23,7 +22,7 @@ class PlatformProvider extends OrchidServiceProvider
     }
 
     /**
-     * @return Menu[]
+     * @return array<Menu>
      */
     public function registerMainMenu(): array
     {
@@ -102,7 +101,7 @@ class PlatformProvider extends OrchidServiceProvider
     }
 
     /**
-     * @return Menu[]
+     * @return array<Menu>
      */
     public function registerProfileMenu(): array
     {
@@ -114,7 +113,7 @@ class PlatformProvider extends OrchidServiceProvider
     }
 
     /**
-     * @return ItemPermission[]
+     * @return array<ItemPermission>
      */
     public function registerPermissions(): array
     {

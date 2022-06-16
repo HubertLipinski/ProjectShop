@@ -33,7 +33,7 @@ class ProductEditScreen extends Screen
         $product->load('categories');
 
         return [
-            'product' => $product
+            'product' => $product,
         ];
     }
 
@@ -50,7 +50,7 @@ class ProductEditScreen extends Screen
     /**
      * Button commands.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return iterable<\Orchid\Screen\Action>
      */
     public function commandBar(): iterable
     {
@@ -60,7 +60,7 @@ class ProductEditScreen extends Screen
                 ->icon('check')
                 ->class('btn py-2 px-4')
                 ->type(Color::SECONDARY())
-                ->canSee(!$this->product->exists),
+                ->canSee(! $this->product->exists),
 
             Button::make('Aktualizuj')
                 ->icon('note')

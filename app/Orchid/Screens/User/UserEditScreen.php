@@ -40,7 +40,7 @@ class UserEditScreen extends Screen
         $user->load(['roles']);
 
         return [
-            'user'       => $user,
+            'user' => $user,
             'permission' => $user->getStatusPermission(),
         ];
     }
@@ -78,7 +78,7 @@ class UserEditScreen extends Screen
     /**
      * Button commands.
      *
-     * @return Action[]
+     * @return iterable<Action>
      */
     public function commandBar(): iterable
     {
@@ -102,7 +102,7 @@ class UserEditScreen extends Screen
     }
 
     /**
-     * @return \Orchid\Screen\Layout[]
+     * @return iterable<\Orchid\Screen\Layout>
      */
     public function layout(): iterable
     {
@@ -199,7 +199,6 @@ class UserEditScreen extends Screen
      * @throws \Exception
      *
      * @return \Illuminate\Http\RedirectResponse
-     *
      */
     public function remove(User $user)
     {

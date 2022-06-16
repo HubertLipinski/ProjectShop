@@ -54,7 +54,7 @@ class ExampleFieldsScreen extends Screen
     /**
      * Button commands.
      *
-     * @return Action[]
+     * @return iterable<Action>
      */
     public function commandBar(): iterable
     {
@@ -64,7 +64,7 @@ class ExampleFieldsScreen extends Screen
     /**
      * Views.
      *
-     * @return \Orchid\Screen\Layout[]
+     * @return iterable<\Orchid\Screen\Layout>
      */
     public function layout(): iterable
     {
@@ -270,7 +270,6 @@ class ExampleFieldsScreen extends Screen
                         'Chicago',
                     ])
                     ->horizontal(),
-
 
                 Input::make('color')
                     ->type('color')

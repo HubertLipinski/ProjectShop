@@ -29,6 +29,7 @@ class RoleSeeder extends Seeder
                 __('Category'),
             ])
                 ->merge([
+                    'platform.index' => true,
                     'platform.systems.products' => true,
                     'platform.systems.categories' => true,
                 ])

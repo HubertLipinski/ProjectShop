@@ -26,7 +26,7 @@ class ProductListLayout extends Table
     /**
      * Get the table cells to be displayed.
      *
-     * @return TD[]
+     * @return iterable<TD>
      */
     protected function columns(): iterable
     {
@@ -37,25 +37,25 @@ class ProductListLayout extends Table
                 ->render(function (Product $product) {
                     $url = url($product->thumbnail) ?? $product->thumbnail;
 
-                    return "<img src='$url' class='mw-100 d-block img-fluid' alt='product thumbnal'>
-                            <span class='small text-muted mt-1 mb-0'># $product->id</span>";
+                    return "<img src='${url}' class='mw-100 d-block img-fluid' alt='product thumbnal'>
+                            <span class='small text-muted mt-1 mb-0'># {$product->id}</span>";
                 }),
             TD::make('title', 'Tytuł')
                 ->sort()
-                ->filter(Input::make())->render(fn(Product $product) => Link::make($product->title)->route('platform.products.edit', $product->id)),
+                ->filter(Input::make())->render(fn (Product $product) => Link::make($product->title)->route('platform.products.edit', $product->id)),
             TD::make('price', 'Cena')
                 ->sort()
                 ->filter(Input::make()),
             TD::make('status', 'Status')
                 ->sort()
                 ->filter(TD::FILTER_SELECT, Status::inputValues())
-                ->render(fn(Product $product) => $product->status->getName()),
+                ->render(fn (Product $product) => $product->status->getName()),
             TD::make('created_at', 'Dodano')
                 ->sort()
-                ->render(fn(Product $product) => $product->created_at->toDateTimeString()),
+                ->render(fn (Product $product) => $product->created_at->toDateTimeString()),
             TD::make('updated_at', 'Zaktualizowano')
                 ->sort()
-                ->render(fn(Product $product) => $product->updated_at->toDateTimeString()),
+                ->render(fn (Product $product) => $product->updated_at->toDateTimeString()),
             TD::make(__('Akcje'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')

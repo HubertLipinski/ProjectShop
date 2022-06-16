@@ -13,7 +13,7 @@ class UserEditLayout extends Rows
     /**
      * Views.
      *
-     * @return Field[]
+     * @return array<Field>
      */
     public function fields(): array
     {

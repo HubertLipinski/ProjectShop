@@ -45,7 +45,7 @@ class ProductListScreen extends Screen
     /**
      * Button commands.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return iterable<\Orchid\Screen\Action>
      */
     public function commandBar(): iterable
     {
@@ -59,12 +59,12 @@ class ProductListScreen extends Screen
     /**
      * Views.
      *
-     * @return \Orchid\Screen\Layout[]|string[]
+     * @return array<\Orchid\Screen\Layout>|array<string>
      */
     public function layout(): iterable
     {
         return [
-            ProductListLayout::class
+            ProductListLayout::class,
         ];
     }
 

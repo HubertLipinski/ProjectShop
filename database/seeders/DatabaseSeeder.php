@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +20,12 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class
         ]);
 
-        \App\Models\Product::factory(50)->create();
+        \App\Models\Product::factory(50)
+            ->create()
+            ->each(fn ($product) => $product->categories()
+                ->syncWithoutDetaching(
+                    Category::inRandomOrder()->limit(2)->get()->modelKeys()
+                )
+            );
     }
 }
