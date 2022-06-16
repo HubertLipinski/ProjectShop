@@ -40,7 +40,7 @@ class UserProfileScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'My account';
+        return 'Mój profil';
     }
 
     /**
@@ -50,7 +50,7 @@ class UserProfileScreen extends Screen
      */
     public function description(): ?string
     {
-        return 'Update your account details such as name, email address and password';
+        return 'W tym miejscu zaktualizujesz swoje dane';
     }
 
     /**
@@ -73,7 +73,7 @@ class UserProfileScreen extends Screen
                 ->title(__('Profile Information'))
                 ->description(__("Update your account's profile information and email address."))
                 ->commands(
-                    Button::make(__('Save'))
+                    Button::make(__('Zapisz'))
                         ->type(Color::DEFAULT())
                         ->icon('check')
                         ->method('save')

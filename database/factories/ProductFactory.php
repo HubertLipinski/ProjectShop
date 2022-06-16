@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ProductFactory extends Factory
 {
+    private const PLACEHOLDERS = [
+        '150.png',
+        '300.png',
+        '640x320.png',
+        '1920x1080.png',
+    ];
+
     /**
      * Define the model's default state.
      *
@@ -21,9 +29,11 @@ class ProductFactory extends Factory
 
         return [
             'title' => $this->faker->sentence(4, true),
-            'description' => $this->faker->realText,
+            'description' => $this->faker->realText(80, true),
+            'content' => $this->faker->realText(500),
             'price' => mt_rand($min * 10, $max * 10) / 10,
-            'thumbnail' => $this->faker->imageUrl(),
+            'thumbnail' => '/storage/placeholder/product/' . $this->faker->randomElement(self::PLACEHOLDERS),
+            'status' => $this->faker->randomElement(Status::availableValues()),
         ];
     }
 }

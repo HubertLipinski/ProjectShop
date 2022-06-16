@@ -28,16 +28,21 @@ class PlatformProvider extends OrchidServiceProvider
     public function registerMainMenu(): array
     {
         return [
-            Menu::make(__('Users'))
+            Menu::make(__('Użytkownicy'))
                 ->icon('user')
                 ->route('platform.systems.users')
                 ->permission('platform.systems.users')
                 ->title(__('Access rights')),
 
-            Menu::make(__('Roles'))
+            Menu::make(__('Role'))
                 ->icon('lock')
                 ->route('platform.systems.roles')
                 ->permission('platform.systems.roles'),
+
+            Menu::make(__('Produkty'))
+                ->icon('list')
+                ->route('platform.products.list')
+                ->permission('platform.systems.products'),
 
             Menu::make('Example screen')
                 ->icon('monitor')
@@ -115,22 +120,20 @@ class PlatformProvider extends OrchidServiceProvider
     {
         return [
             ItemPermission::group(__('System'))
-                ->addPermission('platform.systems.roles', __('Roles'))
-                ->addPermission('platform.systems.users', __('Users'))
-                ->addPermission('platform.systems.products', __('Products'))
-                ->addPermission('platform.systems.categories', __('Categories')),
+                ->addPermission('platform.systems.roles', __('Role'))
+                ->addPermission('platform.systems.users', __('Użytkownicy'))
+                ->addPermission('platform.systems.products', __('Produkty'))
+                ->addPermission('platform.systems.categories', __('Kategorie')),
 
-            ItemPermission::group(__('Product'))
-                ->addPermission('platform.product.view', __('Product view'))
-                ->addPermission('platform.product.create', __('Product create'))
-                ->addPermission('platform.product.update', __('Product update'))
-                ->addPermission('platform.product.delete', __('Product delete')),
+            ItemPermission::group(__('Produkty'))
+                ->addPermission('platform.products.create', __('Tworzenie'))
+                ->addPermission('platform.products.update', __('Aktualizacja'))
+                ->addPermission('platform.products.delete', __('Usuwanie')),
 
-            ItemPermission::group(__('Category'))
-                ->addPermission('platform.category.view', __('Category view'))
-                ->addPermission('platform.category.create', __('Category create'))
-                ->addPermission('platform.category.update', __('Category update'))
-                ->addPermission('platform.category.delete', __('Category delete')),
+            ItemPermission::group(__('Kategorie'))
+                ->addPermission('platform.categories.create', __('Tworzenie'))
+                ->addPermission('platform.categories.update', __('Aktualizacja'))
+                ->addPermission('platform.categories.delete', __('Usuwanie')),
         ];
     }
 }

@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->longText('description');
+            $table->longText('content');
             $table->decimal('price');
             $table->string('thumbnail')->nullable();
-            $table->unsignedInteger('status');
+            $table->unsignedInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
