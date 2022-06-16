@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,17 +14,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Artisan::call('orchid:admin', [
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
-            'password' => 'password',
+        $this->call([
+            RoleSeeder::class,
+            UserSeeder::class,
+            CategorySeeder::class
         ]);
 
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\Product::factory(50)
+            ->create()
+            ->each(fn ($product) => $product->categories()
+                ->syncWithoutDetaching(
+                    Category::inRandomOrder()->limit(2)->get()->modelKeys()
+                )
+            );
     }
 }

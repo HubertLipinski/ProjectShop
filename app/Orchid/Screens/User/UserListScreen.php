@@ -66,12 +66,12 @@ class UserListScreen extends Screen
     /**
      * Button commands.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return iterable<\Orchid\Screen\Action>
      */
     public function commandBar(): iterable
     {
         return [
-            Link::make(__('Add'))
+            Link::make(__('Dodaj'))
                 ->icon('plus')
                 ->route('platform.systems.users.create'),
         ];
@@ -80,7 +80,7 @@ class UserListScreen extends Screen
     /**
      * Views.
      *
-     * @return string[]|\Orchid\Screen\Layout[]
+     * @return array<string>|array<\Orchid\Screen\Layout>
      */
     public function layout(): iterable
     {
@@ -120,7 +120,7 @@ class UserListScreen extends Screen
 
         $user->fill($request->input('user'))->save();
 
-        Toast::info(__('User was saved.'));
+        Toast::info(__('Dane użytkownika zostały zaktualizowane.'));
     }
 
     /**
@@ -130,6 +130,6 @@ class UserListScreen extends Screen
     {
         User::findOrFail($request->get('id'))->delete();
 
-        Toast::info(__('User was removed'));
+        Toast::info(__('Użytkownik został usunięty'));
     }
 }

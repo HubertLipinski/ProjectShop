@@ -10,6 +10,8 @@ use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
 use App\Orchid\Screens\Examples\ExampleScreen;
 use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
 use App\Orchid\Screens\PlatformScreen;
+use App\Orchid\Screens\Product\ProductEditScreen;
+use App\Orchid\Screens\Product\ProductListScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
@@ -93,7 +95,7 @@ Route::screen('roles', RoleListScreen::class)
     ->breadcrumbs(function (Trail $trail) {
         return $trail
             ->parent('platform.index')
-            ->push(__('Roles'), route('platform.systems.roles'));
+            ->push(__('Role'), route('platform.systems.roles'));
     });
 
 // Example...
@@ -112,4 +114,27 @@ Route::screen('example-editors', ExampleTextEditorsScreen::class)->name('platfor
 Route::screen('example-cards', ExampleCardsScreen::class)->name('platform.example.cards');
 Route::screen('example-advanced', ExampleFieldsAdvancedScreen::class)->name('platform.example.advanced');
 
-//Route::screen('idea', Idea::class, 'platform.screens.idea');
+// Produkty
+Route::screen('products', ProductListScreen::class)
+    ->name('platform.products.list')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.index')
+            ->push(__('Produkty'), route('platform.products.list'));
+    });
+
+Route::screen('products/create', ProductEditScreen::class)
+    ->name('platform.products.create')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.products.list')
+            ->push(__('Dodaj'), route('platform.products.create'));
+    });
+
+Route::screen('products/{product}/edit', ProductEditScreen::class)
+    ->name('platform.products.edit')
+    ->breadcrumbs(function (Trail $trail, $product) {
+        return $trail
+            ->parent('platform.products.list')
+            ->push(__('Edytuj'), route('platform.products.edit', $product));
+    });

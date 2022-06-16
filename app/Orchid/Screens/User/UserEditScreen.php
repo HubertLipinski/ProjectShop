@@ -40,7 +40,7 @@ class UserEditScreen extends Screen
         $user->load(['roles']);
 
         return [
-            'user'       => $user,
+            'user' => $user,
             'permission' => $user->getStatusPermission(),
         ];
     }
@@ -52,7 +52,7 @@ class UserEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return $this->user->exists ? 'Edit User' : 'Create User';
+        return $this->user->exists ? 'Edytuj Użytkownika' : 'Dodaj Użytkownika';
     }
 
     /**
@@ -62,7 +62,7 @@ class UserEditScreen extends Screen
      */
     public function description(): ?string
     {
-        return 'Details such as name, email and password';
+        return 'Informacje o użytkowniku';
     }
 
     /**
@@ -78,31 +78,31 @@ class UserEditScreen extends Screen
     /**
      * Button commands.
      *
-     * @return Action[]
+     * @return iterable<Action>
      */
     public function commandBar(): iterable
     {
         return [
-            Button::make(__('Impersonate user'))
+            Button::make(__('Zaloguj się jako ten użytkownik'))
                 ->icon('login')
-                ->confirm('You can revert to your original state by logging out.')
+                ->confirm('Czy chcesz się zalogować jako ' . $this->user->name . '?')
                 ->method('loginAs')
-                ->canSee($this->user->exists && \request()->user()->id !== $this->user->id),
+                ->canSee($this->user->exists && request()->user()->id !== $this->user->id),
 
-            Button::make(__('Remove'))
+            Button::make(__('Usuń'))
                 ->icon('trash')
-                ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+                ->confirm(__('Czy na pewno chcesz usunąć tego użytkownika?'))
                 ->method('remove')
                 ->canSee($this->user->exists),
 
-            Button::make(__('Save'))
+            Button::make(__('Zapisz'))
                 ->icon('check')
                 ->method('save'),
         ];
     }
 
     /**
-     * @return \Orchid\Screen\Layout[]
+     * @return iterable<\Orchid\Screen\Layout>
      */
     public function layout(): iterable
     {
@@ -199,7 +199,6 @@ class UserEditScreen extends Screen
      * @throws \Exception
      *
      * @return \Illuminate\Http\RedirectResponse
-     *
      */
     public function remove(User $user)
     {

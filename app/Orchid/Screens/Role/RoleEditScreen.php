@@ -32,7 +32,7 @@ class RoleEditScreen extends Screen
     public function query(Role $role): iterable
     {
         return [
-            'role'       => $role,
+            'role' => $role,
             'permission' => $role->getStatusPermission(),
         ];
     }
@@ -44,17 +44,7 @@ class RoleEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Manage roles';
-    }
-
-    /**
-     * Display header description.
-     *
-     * @return string|null
-     */
-    public function description(): ?string
-    {
-        return 'Access rights';
+        return 'Zarządzaj rolami';
     }
 
     /**
@@ -70,16 +60,16 @@ class RoleEditScreen extends Screen
     /**
      * Button commands.
      *
-     * @return Action[]
+     * @return iterable<Action>
      */
     public function commandBar(): iterable
     {
         return [
-            Button::make(__('Save'))
+            Button::make(__('Zapisz'))
                 ->icon('check')
                 ->method('save'),
 
-            Button::make(__('Remove'))
+            Button::make(__('Usuń'))
                 ->icon('trash')
                 ->method('remove')
                 ->canSee($this->role->exists),
@@ -89,7 +79,7 @@ class RoleEditScreen extends Screen
     /**
      * Views.
      *
-     * @return string[]|\Orchid\Screen\Layout[]
+     * @return array<string>|array<\Orchid\Screen\Layout>
      */
     public function layout(): iterable
     {
@@ -97,14 +87,12 @@ class RoleEditScreen extends Screen
             Layout::block([
                 RoleEditLayout::class,
             ])
-                ->title('Role')
-                ->description('A role is a collection of privileges (of possibly different services like the Users service, Moderator, and so on) that grants users with that role the ability to perform certain tasks or operations.'),
+                ->title('Role'),
 
             Layout::block([
                 RolePermissionLayout::class,
             ])
-                ->title('Permission/Privilege')
-                ->description('A privilege is necessary to perform certain tasks and operations in an area.'),
+                ->title('Uprawnienia i przywileje'),
         ];
     }
 

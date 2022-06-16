@@ -13,7 +13,7 @@ class UserEditLayout extends Rows
     /**
      * Views.
      *
-     * @return Field[]
+     * @return array<Field>
      */
     public function fields(): array
     {
@@ -22,8 +22,8 @@ class UserEditLayout extends Rows
                 ->type('text')
                 ->max(255)
                 ->required()
-                ->title(__('Name'))
-                ->placeholder(__('Name')),
+                ->title(__('Nazwa użytkownika'))
+                ->placeholder(__('Nazwa użytkownika')),
 
             Input::make('user.email')
                 ->type('email')

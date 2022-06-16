@@ -40,7 +40,7 @@ class UserProfileScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'My account';
+        return 'Mój profil';
     }
 
     /**
@@ -50,13 +50,13 @@ class UserProfileScreen extends Screen
      */
     public function description(): ?string
     {
-        return 'Update your account details such as name, email address and password';
+        return 'W tym miejscu zaktualizujesz swoje dane';
     }
 
     /**
      * Button commands.
      *
-     * @return Action[]
+     * @return iterable<Action>
      */
     public function commandBar(): iterable
     {
@@ -64,7 +64,7 @@ class UserProfileScreen extends Screen
     }
 
     /**
-     * @return \Orchid\Screen\Layout[]
+     * @return iterable<\Orchid\Screen\Layout>
      */
     public function layout(): iterable
     {
@@ -73,7 +73,7 @@ class UserProfileScreen extends Screen
                 ->title(__('Profile Information'))
                 ->description(__("Update your account's profile information and email address."))
                 ->commands(
-                    Button::make(__('Save'))
+                    Button::make(__('Zapisz'))
                         ->type(Color::DEFAULT())
                         ->icon('check')
                         ->method('save')
@@ -97,7 +97,7 @@ class UserProfileScreen extends Screen
     public function save(Request $request): void
     {
         $request->validate([
-            'user.name'  => 'required|string',
+            'user.name' => 'required|string',
             'user.email' => [
                 'required',
                 Rule::unique(User::class, 'email')->ignore($request->user()),
@@ -119,7 +119,7 @@ class UserProfileScreen extends Screen
         $guard = config('platform.guard', 'web');
         $request->validate([
             'old_password' => 'required|current_password:'.$guard,
-            'password'     => 'required|confirmed',
+            'password' => 'required|confirmed',
         ]);
 
         tap($request->user(), function ($user) use ($request) {

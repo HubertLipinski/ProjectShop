@@ -39,7 +39,7 @@ class ExampleCardsScreen extends Screen
     /**
      * Button commands.
      *
-     * @return Action[]
+     * @return iterable<Action>
      */
     public function commandBar(): iterable
     {
@@ -52,7 +52,6 @@ class ExampleCardsScreen extends Screen
      * @throws \Throwable
      *
      * @return array
-     *
      */
     public function layout(): iterable
     {
