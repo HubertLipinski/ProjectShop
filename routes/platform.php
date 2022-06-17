@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Models\Category;
+use App\Models\Product;
+use App\Orchid\Screens\Category\CategoryEditScreen;
+use App\Orchid\Screens\Category\CategoryListScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
 use App\Orchid\Screens\Examples\ExampleChartsScreen;
 use App\Orchid\Screens\Examples\ExampleFieldsAdvancedScreen;
@@ -137,4 +141,29 @@ Route::screen('products/{product}/edit', ProductEditScreen::class)
         return $trail
             ->parent('platform.products.list')
             ->push(__('Edytuj'), route('platform.products.edit', $product));
+    });
+
+// Kategorie
+Route::screen('categories', CategoryListScreen::class)
+    ->name('platform.categories.list')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.index')
+            ->push(__('Kategorie'), route('platform.categories.list'));
+    });
+
+Route::screen('categories/create', CategoryEditScreen::class)
+    ->name('platform.categories.create')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.categories.list')
+            ->push(__('Dodaj'), route('platform.categories.create'));
+    });
+
+Route::screen('categories/{category}/edit', CategoryEditScreen::class)
+    ->name('platform.categories.edit')
+    ->breadcrumbs(function (Trail $trail, $category) {
+        return $trail
+            ->parent('platform.categories.list')
+            ->push(__('Edytuj'), route('platform.categories.edit', $category));
     });

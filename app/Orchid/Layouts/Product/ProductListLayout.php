@@ -35,7 +35,7 @@ class ProductListLayout extends Table
                 ->sort()
                 ->width('150')
                 ->render(function (Product $product) {
-                    $url = url($product->thumbnail) ?? $product->thumbnail;
+                    $url = url($product->thumbnail);
 
                     return "<img src='${url}' class='mw-100 d-block img-fluid' alt='product thumbnal'>
                             <span class='small text-muted mt-1 mb-0'># {$product->id}</span>";

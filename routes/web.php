@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Product\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('products')->middleware('auth')->group(function () {
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::get('list', 'getList');
+    });
+});
+

@@ -59,7 +59,6 @@ class ProductEditScreen extends Screen
                 ->method('createOrUpdate')
                 ->icon('check')
                 ->class('btn py-2 px-4')
-                ->type(Color::SECONDARY())
                 ->canSee(! $this->product->exists),
 
             Button::make('Aktualizuj')
