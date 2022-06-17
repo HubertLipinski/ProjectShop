@@ -11,8 +11,11 @@
                     <p class="card-text"><span class="fw-bold">Kategorie: </span>{{ product.categories.join(', ') }}</p>
                     <p class="card-text"><small class="text-muted">Ostatnia zmiana: {{ product.updated_at }}</small></p>
                     <div class="row w-100 pt-2">
+                        <div class="col">
+                            <p class="h5 mb-0">Cena: {{product.price}}</p>
+                        </div>
                         <div class="col text-end p-0 m-0">
-                            <div class="btn btn-sm btn-outline-success">Dodaj do koszyka</div>
+                            <div class="btn btn-sm btn-outline-success" @click="addToCart">Dodaj do koszyka</div>
                         </div>
                     </div>
                 </div>
@@ -26,6 +29,23 @@ export default {
     props: {
         product: {type: Object, required: true}
     },
+    methods: {
+        addToCart() {
+            axios.post('/cart/store', {
+                id: this.product.id
+            })
+                .then(response => {
+                    this.$notify({
+                        title: 'Success',
+                        message: 'Produkt został dodany do koszyka',
+                        type: 'success',
+                        duration: 2500,
+                        offset: 55
+                    });
+                })
+                .catch(err => console.error(err))
+        }
+    }
 }
 </script>
 

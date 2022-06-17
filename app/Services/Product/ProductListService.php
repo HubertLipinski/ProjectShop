@@ -5,6 +5,8 @@ namespace App\Services\Product;
 use App\Enums\Status;
 use App\Http\Requests\Product\ProductListRequest;
 use App\Models\Product;
+use App\Orchid\Filters\ProductCategoryFilter;
+use App\Orchid\Filters\ProductSearchFilter;
 use App\Services\ConstService;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -34,6 +36,10 @@ class ProductListService
         ])
             ->where('status', '=', Status::PUBLISHED)
             ->filters()
+            ->filtersApply([
+                ProductCategoryFilter::class,
+                ProductSearchFilter::class,
+            ])
             ->defaultSort('id', 'desc')
             ->paginate($perPage);
     }

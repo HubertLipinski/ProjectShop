@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Status;
+use App\Helpers\Cart\Cart;
 use Illuminate\Support\Facades\Facade;
 
 return [

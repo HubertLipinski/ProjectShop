@@ -20,7 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware(['api'])->group(function () {
-    Route::apiResource('products', ProductController::class)->only(['index', 'show']);
-    Route::apiResource('categories', CategoryController::class)->only(['index']);
+Route::group(['middleware' => 'api'], function () {
+    Route::apiResource('products', ProductController::class)
+        ->only(['index', 'show'])
+        ->name('index', 'api.products.index')
+        ->name('show', 'api.products.show');
+    Route::apiResource('categories', CategoryController::class)
+        ->only(['index'])
+        ->name('index', 'api.categories.index');
 });

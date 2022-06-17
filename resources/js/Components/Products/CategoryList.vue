@@ -1,8 +1,8 @@
 <template>
-    <div class="col-md-12 col-lg-2">
+    <div class="col-md-12 col-lg-2" v-loading="loading">
         <div class="list-group">
             <label class="list-group-item" v-for="category in categories" :key="category.id">
-                <input class="form-check-input me-1" type="checkbox" :value="category.id">
+                <input class="form-check-input me-1" type="checkbox" v-model="selected" :value="category.id">
                 {{category.name}}
             </label>
         </div>
@@ -13,23 +13,34 @@
 import axios from 'axios';
 
 export default {
+    emits: ['categoriesUpdated'],
     data() {
         return {
+            loading: true,
             categories: [],
             selected: [],
         }
     },
-    mounted() {
+    async mounted() {
         this.getCategories();
     },
     methods: {
         getCategories() {
+            this.loading = true;
             axios.get('/api/categories')
                 .then(response => {
-                    console.log(response.data.categories);
+                    this.loading = false;
                     this.categories = response.data.categories;
                 })
-                .catch(error => {})
+                .catch(error => console.error(error))
+        },
+        reset() {
+            this.selected = [];
+        }
+    },
+    watch: {
+        selected() {
+            this.$emit('categoriesUpdated', this.selected);
         }
     }
 }

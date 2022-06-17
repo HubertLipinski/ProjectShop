@@ -1,29 +1,35 @@
 <template>
     <div class="container">
-
         <div class="row">
-            <div class="py-2">
-                <p class="h2 mt-0">Lista produktów</p>
+            <div class="d-flex py-2">
+                <div class="w-50">
+                    <p class="h2 mt-0">Lista produktów</p>
+                </div>
+                <div class="w-50 text-end" v-if="hasActiveFilters">
+                    <button type="button" class="btn btn-outline-secondary" @click="resetFilters">Resetuj filtry</button>
+                </div>
             </div>
-            <search-bar></search-bar>
+            <search-bar @search="searchProducts" ref="searchBar"></search-bar>
         </div>
 
         <div class="row">
-            <category-list></category-list>
+            <category-list @categoriesUpdated="fetchCategories" ref="categoryList"></category-list>
 
-            <div class="col-md-12 col-lg-10">
+            <div class="col-md-12 col-lg-10" v-loading="loading">
                 <div class="grid pb-3" style="--bs-columns: 2;">
                     <the-product v-for="product in products" :key="product.id" :product="product"></the-product>
                 </div>
 
-                <nav aria-label="Page navigation example" v-if="products.length > 0">
-                    <ul class="pagination justify-content-center">
-
-                        <li class="page-item" v-for="(link, index) in pagination.links" :key="index">
-                            <a class="page-link" :class="{'active': link.active}" @click="getPage(link.url)" v-html="link.label"></a>
-                        </li>
-                    </ul>
-                </nav>
+                <div class="pagination justify-content-center py-3" v-if="paginationData && paginationData.total > 0">
+                    <el-pagination
+                        @current-change="getPage"
+                        layout="prev, pager, next"
+                        background
+                        :page-size="perPage"
+                        :current-page="page"
+                        :total="paginationData.total">
+                    </el-pagination>
+                </div>
             </div>
         </div>
     </div>
@@ -40,34 +46,64 @@ export default {
     components: {
         CategoryList,
         SearchBar,
-        TheProduct
+        TheProduct,
     },
     data() {
         return {
             products: [],
+            categories: [],
+            search: null,
+            loading: true,
 
             page: 1,
-            perPage: 1,
-            pagination: null,
+            perPage: 6,
+            paginationData: null,
         }
     },
-    mounted() {
+    async mounted() {
         this.getProducts()
     },
+    computed: {
+        hasActiveFilters() {
+            return this.categories.length || this.search;
+        }
+    },
     methods: {
-        getCategories() {},
         getProducts() {
-            const url = `/api/products?per_page=6&page=${this.page}`;
-            axios.get(url)
+            this.loading = true;
+            let url = `/api/products`;
+            axios.get(url, {
+                params: {
+                    per_page: this.perPage,
+                    page: this.page,
+                    categories: this.categories,
+                    search: this.search
+                }
+            })
                 .then(response => {
-                    console.log(response.data);
+                    this.loading = false;
                     this.products = response.data.data;
-                    this.pagination = response.data.meta;
+                    this.paginationData = response.data.meta;
                 })
-                .catch(error => error)
+                .catch(error => console.error(error))
         },
-        getPage(url) {
-            console.log(url)
+        getPage(page) {
+            this.page = page;
+            this.getProducts();
+        },
+        fetchCategories(categories) {
+            this.categories = categories;
+            this.getProducts();
+        },
+        searchProducts(query) {
+            this.search = query;
+            this.getProducts();
+        },
+        resetFilters() {
+            this.search = null;
+            this.categories = [];
+            this.$refs.searchBar.reset();
+            this.$refs.categoryList.reset();
         }
     }
 }
