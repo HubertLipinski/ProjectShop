@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -32,7 +33,7 @@ class ProductFactory extends Factory
             'description' => $this->faker->realText(80, true),
             'content' => $this->faker->realText(500),
             'price' => mt_rand($min * 10, $max * 10) / 10,
-            'thumbnail' => '/storage/placeholder/product/' . $this->faker->randomElement(self::PLACEHOLDERS),
+            'thumbnail' => Storage::disk('s3')->url('placeholder/' . $this->faker->randomElement(self::PLACEHOLDERS)),
             'status' => $this->faker->randomElement(Status::availableValues()),
         ];
     }

@@ -109,7 +109,7 @@ class ProductEditScreen extends Screen
                 Layout::rows([
                     Cropper::make('product.thumbnail')
                         ->title('Miniaturka')
-                        ->targetRelativeUrl(),
+                        ->storage('s3'),
                 ]),
             ]),
         ];
