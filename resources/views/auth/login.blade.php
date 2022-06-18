@@ -67,6 +67,14 @@
                     </form>
                 </div>
             </div>
+            <div class="mt-4 text-center">
+                <div class="py-2">
+                    <p><span class="fw-bold">Admin: </span>admin@example.com</p>
+                    <p><span class="fw-bold">Moderator: </span>moderator@example.com</p>
+                    <p><span class="fw-bold">User: </span>user@example.com</p>
+                    <p class="pt-2"><span class="fw-bold">Hasło da każdego konta: </span> password</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

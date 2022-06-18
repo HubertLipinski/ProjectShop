@@ -117,11 +117,14 @@ class ProductEditScreen extends Screen
 
     public function createOrUpdate(Product $product, ProductStoreRequest $request): RedirectResponse
     {
-        $product->fill($request->get('product'))->save();
+        $data = $request->get('product');
+        $data['status'] = $request->get('status');
 
-        $product->categories()->syncWithoutDetaching($request->get('product.categories', []));
+        $product->fill($data)->save();
 
-        Alert::info('Produkt został pomyślnie utworzony.');
+        $product->categories()->syncWithoutDetaching($request->input('product.categories', []));
+
+        Alert::info('Produkt został pomyślnie '.($product->wasRecentlyCreated ? 'utworzony' : 'zaktualizowany').'.');
 
         return redirect()->route('platform.products.list');
     }

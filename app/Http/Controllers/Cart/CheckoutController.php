@@ -43,6 +43,6 @@ class CheckoutController extends Controller
             \Session::flash('success', 'Twoje zamówienie zostało pomyślnie złożone');
         }
 
-        return view('cart.payment-summary', compact('orders'));
+        return view('cart.orders', compact('orders'));
     }
 }

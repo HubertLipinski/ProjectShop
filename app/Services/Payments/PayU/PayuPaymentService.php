@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Http;
 
 class PayuPaymentService extends BasePaymentService
 {
+    private const DEFAULT_PAYMENT = 100;
+
     private UserCartService $userCartService;
 
     /**
@@ -43,6 +45,10 @@ class PayuPaymentService extends BasePaymentService
     public function sendRequest(): array
     {
         $this->checkToken();
+
+        $amount = $this->userCartService->total();
+        $amount = $amount > 0 ? $amount : self::DEFAULT_PAYMENT;
+
         $response = Http::asJson()
             ->withToken($this->token)
             ->withOptions([
@@ -55,12 +61,13 @@ class PayuPaymentService extends BasePaymentService
                 'merchantPosId' => config('payment.payU.pos_id'),
                 'description' => 'Płatność PayU',
                 'currencyCode' => 'PLN',
-                'totalAmount' => $this->userCartService->total() * 100,
+                'totalAmount' => round($amount * 100),
                 'settings' => [
                     'invoiceDisabled' => 'true',
                 ],
             ]);
 
+        \Log::debug($response->json());
         if ($response->json('status.statusCode') === 'SUCCESS') {
             return $response->json();
         }

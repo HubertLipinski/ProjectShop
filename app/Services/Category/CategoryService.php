@@ -18,7 +18,7 @@ class CategoryService
     }
 
     /**
-     * @return array
+     * @return Collection
      */
     public function getCategories(): Collection
     {
