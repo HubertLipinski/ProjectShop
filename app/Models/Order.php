@@ -13,6 +13,6 @@ class Order extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'status' => OrderStatus::class
+        'status' => OrderStatus::class,
     ];
 }

@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Models\Category;
-use App\Models\Product;
 use App\Orchid\Screens\Category\CategoryEditScreen;
 use App\Orchid\Screens\Category\CategoryListScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;

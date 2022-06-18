@@ -24,7 +24,7 @@ class CategoryEditScreen extends Screen
     public function query(Category $category): iterable
     {
         return [
-            'category' => $category
+            'category' => $category,
         ];
     }
 
@@ -41,7 +41,7 @@ class CategoryEditScreen extends Screen
     /**
      * Button commands.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return iterable<\Orchid\Screen\Action>
      */
     public function commandBar(): iterable
     {
@@ -68,13 +68,13 @@ class CategoryEditScreen extends Screen
     /**
      * Views.
      *
-     * @return \Orchid\Screen\Layout[]|string[]
+     * @return array<\Orchid\Screen\Layout>|array<string>
      */
     public function layout(): iterable
     {
         return [
             Layout::columns([
-                CategoryLayout::class
+                CategoryLayout::class,
             ]),
         ];
     }

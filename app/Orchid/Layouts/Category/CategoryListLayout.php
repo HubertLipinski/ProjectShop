@@ -22,7 +22,7 @@ class CategoryListLayout extends Table
     /**
      * Get the table cells to be displayed.
      *
-     * @return TD[]
+     * @return iterable<TD>
      */
     protected function columns(): iterable
     {

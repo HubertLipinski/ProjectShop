@@ -45,10 +45,10 @@ class ProductSearchFilter extends Filter
     /**
      * Get the display fields.
      *
-     * @return Field[]
+     * @return iterable<Field>
      */
     public function display(): iterable
     {
-        //
+        
     }
 }

@@ -57,7 +57,7 @@ class PayuPaymentService extends BasePaymentService
                 'currencyCode' => 'PLN',
                 'totalAmount' => $this->userCartService->total() * 100,
                 'settings' => [
-                    'invoiceDisabled' => 'true'
+                    'invoiceDisabled' => 'true',
                 ],
             ]);
 

@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use function auth;
 
 class CategoryUpdateRequest extends FormRequest
 {

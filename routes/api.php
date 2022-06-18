@@ -30,6 +30,6 @@ Route::group(['middleware' => 'api'], function () {
         ->name('index', 'api.categories.index');
 });
 
-Route::post('payu/notify', function(Request $request) {
+Route::post('payu/notify', function (Request $request) {
     \Log::debug('received request from payment provider');
 });

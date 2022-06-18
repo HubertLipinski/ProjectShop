@@ -18,6 +18,6 @@ class ProductCategoryResource extends JsonResource
      */
     public function toArray($request): array|JsonSerializable|Arrayable
     {
-        return $this->resource->map(fn($item) => $item->name);
+        return $this->resource->map(fn ($item) => $item->name);
     }
 }

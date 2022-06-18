@@ -9,7 +9,7 @@ enum OrderStatus: int
 
     public function getName(): string
     {
-        return match($this) {
+        return match ($this) {
             self::CREATED => 'Utworzony',
             self::PROCESSED => 'Przetworzony',
             default => 'Status nieznany',

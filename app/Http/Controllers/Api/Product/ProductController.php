@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api\Product;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Product\ProductListRequest;
 use App\Http\Resources\Product\ProductCollection;
 use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
 use App\Services\Product\ProductListService;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -22,11 +22,11 @@ class ProductController extends Controller
     }
 
     /**
-     * @param ProductListRequest $request
+     * @param Request $request
      *
      * @return ProductCollection
      */
-    public function index(ProductListRequest $request): ProductCollection
+    public function index(Request $request): ProductCollection
     {
         $list = $this->productListService->getList($request);
 

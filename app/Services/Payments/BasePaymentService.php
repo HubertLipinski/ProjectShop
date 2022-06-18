@@ -6,7 +6,7 @@ abstract class BasePaymentService
 {
     protected string $token = '';
 
-    abstract function getToken(): ?string;
+    abstract public function getToken(): ?string;
 
     /**
      * @return string

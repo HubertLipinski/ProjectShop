@@ -5,7 +5,6 @@ namespace App\Orchid\Screens\Category;
 use App\Models\Category;
 use App\Orchid\Layouts\Category\CategoryListLayout;
 use App\Services\ConstService;
-use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 
@@ -43,7 +42,7 @@ class CategoryListScreen extends Screen
     /**
      * Button commands.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return iterable<\Orchid\Screen\Action>
      */
     public function commandBar(): iterable
     {
@@ -57,12 +56,12 @@ class CategoryListScreen extends Screen
     /**
      * Views.
      *
-     * @return \Orchid\Screen\Layout[]|string[]
+     * @return array<\Orchid\Screen\Layout>|array<string>
      */
     public function layout(): iterable
     {
         return [
-            CategoryListLayout::class
+            CategoryListLayout::class,
         ];
     }
 

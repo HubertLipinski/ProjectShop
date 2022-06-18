@@ -36,4 +36,3 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('orders', [CheckoutController::class, 'orders'])->name('payment.orders');
     });
 });
-

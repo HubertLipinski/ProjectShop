@@ -20,7 +20,7 @@ class CategoryLayout extends Rows
     /**
      * Get the fields elements to be displayed.
      *
-     * @return Field[]
+     * @return iterable<Field>
      */
     protected function fields(): iterable
     {
