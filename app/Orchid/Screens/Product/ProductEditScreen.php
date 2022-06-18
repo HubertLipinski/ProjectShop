@@ -109,8 +109,7 @@ class ProductEditScreen extends Screen
                 Layout::rows([
                     Cropper::make('product.thumbnail')
                         ->title('Miniaturka')
-                        ->storage(env('APP_ENV') !== 'local' ? 's3' : 'public')
-                        ->targetRelativeUrl(),
+                        ->storage(env('APP_ENV') !== 'local' ? 's3' : 'public'),
                 ]),
             ]),
         ];
@@ -125,7 +124,7 @@ class ProductEditScreen extends Screen
 
         $product->categories()->syncWithoutDetaching($request->input('product.categories', []));
 
-        Alert::info('Produkt został pomyślnie '.($product->wasRecentlyCreated ? 'utworzony' : 'zaktualizowany').'.');
+        Alert::info('Produkt został pomyślnie ' . ($product->wasRecentlyCreated ? 'utworzony' : 'zaktualizowany') . '.');
 
         return redirect()->route('platform.products.list');
     }

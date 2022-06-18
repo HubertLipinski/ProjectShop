@@ -23,7 +23,7 @@ enum Status: int
     public static function inputValues(): array
     {
         return collect(self::cases())
-            ->transform(fn($item) => [$item->value => $item->getName()])
+            ->transform(fn ($item) => [$item->value => $item->getName()])
             ->collapse()
             ->toArray();
     }

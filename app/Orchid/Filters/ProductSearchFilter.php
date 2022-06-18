@@ -49,6 +49,5 @@ class ProductSearchFilter extends Filter
      */
     public function display(): iterable
     {
-        
     }
 }
