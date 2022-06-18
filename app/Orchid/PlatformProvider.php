@@ -27,76 +27,31 @@ class PlatformProvider extends OrchidServiceProvider
     public function registerMainMenu(): array
     {
         return [
+            Menu::make('Wróć do sklepu')
+                ->icon('action-undo')
+                ->route('products.index'),
+
+            Menu::make(__('Produkty'))
+                ->icon('list')
+                ->route('platform.products.list')
+                ->permission('platform.systems.products')
+                ->title('Zarządzanie produktami'),
+
+            Menu::make(__('Kategorie'))
+                ->icon('tag')
+                ->route('platform.categories.list')
+                ->permission('platform.systems.categories'),
+
             Menu::make(__('Użytkownicy'))
                 ->icon('user')
                 ->route('platform.systems.users')
                 ->permission('platform.systems.users')
-                ->title(__('Access rights')),
+                ->title(__('Zarządzanie użytkownikami')),
 
             Menu::make(__('Role'))
                 ->icon('lock')
                 ->route('platform.systems.roles')
                 ->permission('platform.systems.roles'),
-
-            Menu::make(__('Produkty'))
-                ->icon('list')
-                ->route('platform.products.list')
-                ->permission('platform.systems.products'),
-
-            Menu::make('Example screen')
-                ->icon('monitor')
-                ->route('platform.example')
-                ->title('Navigation')
-                ->badge(function () {
-                    return 6;
-                }),
-
-            Menu::make('Dropdown menu')
-                ->icon('code')
-                ->list([
-                    Menu::make('Sub element item 1')->icon('bag'),
-                    Menu::make('Sub element item 2')->icon('heart'),
-                ]),
-
-            Menu::make('Basic Elements')
-                ->title('Form controls')
-                ->icon('note')
-                ->route('platform.example.fields'),
-
-            Menu::make('Advanced Elements')
-                ->icon('briefcase')
-                ->route('platform.example.advanced'),
-
-            Menu::make('Text Editors')
-                ->icon('list')
-                ->route('platform.example.editors'),
-
-//            Menu::make('Overview layouts')
-//                ->title('Layouts')
-//                ->icon('layers')
-//                ->route('platform.example.layouts'),
-//
-//            Menu::make('Chart tools')
-//                ->icon('bar-chart')
-//                ->route('platform.example.charts'),
-//
-//            Menu::make('Cards')
-//                ->icon('grid')
-//                ->route('platform.example.cards')
-//                ->divider(),
-//
-//            Menu::make('Documentation')
-//                ->title('Docs')
-//                ->icon('docs')
-//                ->url('https://orchid.software/en/docs'),
-//
-//            Menu::make('Changelog')
-//                ->icon('shuffle')
-//                ->url('https://github.com/orchidsoftware/platform/blob/master/CHANGELOG.md')
-//                ->target('_blank')
-//                ->badge(function () {
-//                    return Dashboard::version();
-//                }, Color::DARK()),
         ];
     }
 
@@ -106,7 +61,7 @@ class PlatformProvider extends OrchidServiceProvider
     public function registerProfileMenu(): array
     {
         return [
-            Menu::make('Profile')
+            Menu::make('Mój profil')
                 ->route('platform.profile')
                 ->icon('user'),
         ];

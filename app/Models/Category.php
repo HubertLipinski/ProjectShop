@@ -7,14 +7,32 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Orchid\Filters\Filterable;
+use Orchid\Screen\AsSource;
 
 class Category extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, AsSource, Filterable;
+
+    protected $fillable = [
+        'name',
+        'active',
+    ];
+
+    protected array $allowedFilters = [
+        'name',
+        'active',
+    ];
+
+    protected array $allowedSorts = [
+        'id',
+        'name',
+        'active',
+    ];
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class, 'product_category', 'category_id', 'id');
+        return $this->belongsToMany(Product::class, 'product_category', 'category_id', 'id');
     }
 
     /**

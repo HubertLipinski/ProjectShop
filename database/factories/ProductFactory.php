@@ -24,8 +24,8 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
-        $min = 5;
-        $max = 3500;
+        $min = 1;
+        $max = 100;
 
         return [
             'title' => $this->faker->sentence(4, true),

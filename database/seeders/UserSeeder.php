@@ -31,10 +31,12 @@ class UserSeeder extends Seeder
 
         $user->roles()->attach(Role::where('slug', 'moderator')->first()->id);
 
-        User::create([
+        $user = User::create([
             'name' => 'user',
             'email' => 'user@example.com',
             'password' => bcrypt('password'),
         ]);
+
+        $user->roles()->attach(Role::where('slug', 'user')->first()->id);
     }
 }

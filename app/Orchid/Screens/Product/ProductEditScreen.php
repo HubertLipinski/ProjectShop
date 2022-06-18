@@ -15,7 +15,6 @@ use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Fields\Select;
 use Orchid\Screen\Fields\TextArea;
 use Orchid\Screen\Screen;
-use Orchid\Support\Color;
 use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
 
@@ -59,7 +58,6 @@ class ProductEditScreen extends Screen
                 ->method('createOrUpdate')
                 ->icon('check')
                 ->class('btn py-2 px-4')
-                ->type(Color::SECONDARY())
                 ->canSee(! $this->product->exists),
 
             Button::make('Aktualizuj')
@@ -119,11 +117,14 @@ class ProductEditScreen extends Screen
 
     public function createOrUpdate(Product $product, ProductStoreRequest $request): RedirectResponse
     {
-        $product->fill($request->get('product'))->save();
+        $data = $request->get('product');
+        $data['status'] = $request->get('status');
 
-        $product->categories()->syncWithoutDetaching($request->get('product.categories', []));
+        $product->fill($data)->save();
 
-        Alert::info('Produkt został pomyślnie utworzony.');
+        $product->categories()->syncWithoutDetaching($request->input('product.categories', []));
+
+        Alert::info('Produkt został pomyślnie '.($product->wasRecentlyCreated ? 'utworzony' : 'zaktualizowany').'.');
 
         return redirect()->route('platform.products.list');
     }

@@ -31,15 +31,24 @@
                 @else
                     @if(auth()->user()->hasAccess('platform.index'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('platform.index') }}">Panel Administratora</a>
+                            <a class="nav-link text-danger" href="{{ route('platform.index') }}">Panel Administratora</a>
                         </li>
                     @endif
-                    <li class="nav-item dropdown">
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="{{ route('products.index') }}">Lista produktów</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link position-relative" href="{{ route('cart.index') }}">
+                            Koszyk
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown px-2">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a href="{{ route('payment.orders') }}" class="dropdown-item">Moje zamówienia</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                 Wyloguj się
