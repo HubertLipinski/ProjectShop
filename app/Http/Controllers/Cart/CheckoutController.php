@@ -3,29 +3,46 @@
 namespace App\Http\Controllers\Cart;
 
 use App\Http\Controllers\Controller;
-use App\Services\Payments\PayU\PayuPaymentService;
+use App\Services\Cart\CartCheckoutService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class CheckoutController extends Controller
 {
-    private PayuPaymentService $payuPaymentService;
+    private CartCheckoutService $cartCheckoutService;
 
     /**
-     * @param PayuPaymentService $payuPaymentService
+     * @param CartCheckoutService $cartCheckoutService
      */
-    public function __construct(PayuPaymentService $payuPaymentService)
+    public function __construct(CartCheckoutService $cartCheckoutService)
     {
-        $this->payuPaymentService = $payuPaymentService;
+        $this->cartCheckoutService = $cartCheckoutService;
     }
 
-    public function checkout()
+    /**
+     * @return RedirectResponse
+     */
+    public function checkout(): RedirectResponse
     {
-        // todo checkout
+        $url = $this->cartCheckoutService->checkout();
 
-        $response = $this->payuPaymentService->sendRequest();
+        return redirect($url)->send();
+    }
 
-        dd($response);
+    /**
+     * @param Request $request
+     *
+     * @return View
+     */
+    public function orders(Request $request): View
+    {
+        $orders = auth()->user()->orders;
 
-        dd($this->payuPaymentService->getToken());
+        if ($request->has('success')) {
+            \Session::flash('success', 'Twoje zamówienie zostało pomyślnie złożone');
+        }
+
+        return view('cart.payment-summary', compact('orders'));
     }
 }

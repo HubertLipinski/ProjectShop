@@ -12,7 +12,7 @@
                     <p class="card-text"><small class="text-muted">Ostatnia zmiana: {{ product.updated_at }}</small></p>
                     <div class="row w-100 pt-2">
                         <div class="col">
-                            <p class="h5 mb-0">Cena: {{product.price}}</p>
+                            <p class="h5 mb-0">Cena: {{product.price}} zł</p>
                         </div>
                         <div class="col text-end p-0 m-0">
                             <div class="btn btn-sm btn-outline-success" @click="addToCart">Dodaj do koszyka</div>

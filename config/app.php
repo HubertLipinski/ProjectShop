@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\OrderStatus;
 use App\Enums\Status;
 use App\Helpers\Cart\Cart;
 use Illuminate\Support\Facades\Facade;
@@ -213,6 +214,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Status' => Status::class,
+        'OrderStatus' => OrderStatus::class,
     ])->toArray(),
 
 ];

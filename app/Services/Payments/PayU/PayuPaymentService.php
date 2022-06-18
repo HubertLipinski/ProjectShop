@@ -2,11 +2,22 @@
 
 namespace App\Services\Payments\PayU;
 
+use App\Services\Cart\UserCartService;
 use App\Services\Payments\BasePaymentService;
 use Illuminate\Support\Facades\Http;
 
 class PayuPaymentService extends BasePaymentService
 {
+    private UserCartService $userCartService;
+
+    /**
+     * @param UserCartService $userCartService
+     */
+    public function __construct(UserCartService $userCartService)
+    {
+        $this->userCartService = $userCartService;
+    }
+
     /**
      * @return string
      */
@@ -27,9 +38,9 @@ class PayuPaymentService extends BasePaymentService
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function sendRequest(): string
+    public function sendRequest(): array
     {
         $this->checkToken();
         $response = Http::asJson()
@@ -39,26 +50,19 @@ class PayuPaymentService extends BasePaymentService
             ])
             ->post(config('payment.payU.order_endpoint'), [
                 'notifyUrl' => config('payment.payU.notify'),
-                'continueUrl' => config('app.url') . '/payment-summary/payu?cart=' . auth()->id(),
+                'continueUrl' => route('payment.orders') . '?success=true',
                 'customerIp' => request()->ip(),
                 'merchantPosId' => config('payment.payU.pos_id'),
                 'description' => 'Płatność PayU',
                 'currencyCode' => 'PLN',
-                'totalAmount' => 10 * 100,
+                'totalAmount' => $this->userCartService->total() * 100,
                 'settings' => [
                     'invoiceDisabled' => 'true'
                 ],
-                'products' => [ // todo
-                    [
-                        'name' => 'Produkt 1',
-                        'unitPrice' => 15000,
-                        'quantity' => 1
-                    ]
-                ]
             ]);
 
         if ($response->json('status.statusCode') === 'SUCCESS') {
-            return $response->json('redirectUri');
+            return $response->json();
         }
 
         abort(400, 'Wystąpił błąd podczas składania zamówienia');

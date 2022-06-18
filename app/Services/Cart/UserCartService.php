@@ -8,9 +8,9 @@ use Illuminate\Support\Collection;
 
 class UserCartService
 {
-    private Product $product;
-
     public const CART_KEY = 'user_{{id}}_cart';
+
+    private Product $product;
 
     /**
      * @param Product $product
@@ -55,6 +55,29 @@ class UserCartService
             ->reject(fn (Product $cartProduct) => $product->id === $cartProduct->id);
 
         session()->put($this->getSessionKey(), $items);
+    }
+
+    /**
+     * @return float
+     */
+    public function total(): float
+    {
+        return $this->getCartItems()
+            ->sum('price');
+    }
+
+    /**
+     * @return int
+     */
+    public function items(): int
+    {
+        return $this->getCartItems()
+            ->count();
+    }
+
+    public function reset(): void
+    {
+        session()->forget($this->getSessionKey());
     }
 
     /**

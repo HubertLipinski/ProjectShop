@@ -29,3 +29,7 @@ Route::group(['middleware' => 'api'], function () {
         ->only(['index'])
         ->name('index', 'api.categories.index');
 });
+
+Route::post('payu/notify', function(Request $request) {
+    \Log::debug('received request from payment provider');
+});

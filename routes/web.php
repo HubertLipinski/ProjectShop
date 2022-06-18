@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Cart\CartController;
+use App\Http\Controllers\Cart\CheckoutController;
 use App\Http\Controllers\Product\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,8 +29,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [CartController::class, 'index'])->name('cart.index');
         Route::post('store', [CartController::class, 'store'])->name('cart.store');
         Route::get('{product}/delete', [CartController::class, 'delete'])->name('cart.delete');
+    });
 
-        Route::get('checkout', [\App\Http\Controllers\Cart\CheckoutController::class, 'checkout'])->name('cart.checkout');
+    Route::group(['prefix' => 'payment'], function () {
+        Route::get('checkout', [CheckoutController::class, 'checkout'])->name('payment.checkout');
+        Route::get('orders', [CheckoutController::class, 'orders'])->name('payment.orders');
     });
 });
 

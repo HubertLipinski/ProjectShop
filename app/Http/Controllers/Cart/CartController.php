@@ -25,7 +25,7 @@ class CartController extends Controller
     public function index(): View
     {
         $items = $this->userCartService->getCartItems();
-        $total = $items->sum('price');
+        $total = $this->userCartService->total();
 
         return view('cart.index', compact('items', 'total'));
     }

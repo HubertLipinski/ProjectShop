@@ -24,7 +24,7 @@
                                     <h5 class="card-title">{{$item->title}}</h5>
                                     <p class="card-text">{{$item->description}}</p>
                                     <p class="card-text"><span class="fw-bold">Kategorie: </span>{{$item->categories->pluck('name')->join(', ')}}</p>
-                                    <p class="h5">Cena: {{$item->price}}</p>
+                                    <p class="h5">Cena: {{$item->price}} zł</p>
                                 </div>
                             </div>
                             <div class="col-md-2 d-flex justify-content-center align-items-center">
@@ -37,16 +37,18 @@
                         </div>
                     </div>
                 @empty
-                    <div class="alert alert-warning">
-                        <p class="py-2 m-0">Brak produktów w koszyku</p>
+                    <div class="row justify-content-center">
+                        <div class="alert alert-warning col-md-8">
+                            <p class="py-2 m-0">Brak produktów w koszyku</p>
+                        </div>
                     </div>
                 @endforelse
             @if($total > 0)
                 <div class="row py-4 px-3">
                     <hr>
                     <div class="col-md-12 text-end">
-                        <p class="h4 mt-2 py-4 mr-2">Suma: {{$total}}</p>
-                        <button class="btn btn-outline-primary px-4 py-2">Zamów</button>
+                        <p class="h4 mt-2 py-4 mr-2">Suma: {{number_format($total, 2)}} zł</p>
+                        <a class="btn btn-outline-primary px-4 py-2" href="{{route('payment.checkout')}}">Zamów</a>
                     </div>
                 </div>
             @endif
