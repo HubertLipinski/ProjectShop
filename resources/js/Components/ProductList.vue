@@ -102,6 +102,7 @@ export default {
         resetFilters() {
             this.search = null;
             this.categories = [];
+            this.page = 1;
             this.$refs.searchBar.reset();
             this.$refs.categoryList.reset();
         }

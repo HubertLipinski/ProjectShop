@@ -33,8 +33,12 @@ class CartController extends Controller
     public function store(Request $request): JsonResponse
     {
         $this->userCartService->addToCart($request);
+        $count = $this->userCartService->items();
 
-        return response()->json(['status' => true]);
+        return response()->json([
+            'status' => true,
+            'cartCount' => $count
+        ]);
     }
 
     public function delete(Product $product): RedirectResponse

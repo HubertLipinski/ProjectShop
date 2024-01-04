@@ -39,7 +39,7 @@
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link position-relative" href="{{ route('cart.index') }}">
-                            Koszyk
+                            Koszyk <cart-indicator :cart-count="{{ $cartCount }}"/>
                         </a>
                     </li>
                     <li class="nav-item dropdown px-2">

@@ -42,6 +42,7 @@ export default {
                         duration: 2500,
                         offset: 55
                     });
+                  this.$root.$emit('cart-updated', response.data.cartCount)
                 })
                 .catch(err => console.error(err))
         }

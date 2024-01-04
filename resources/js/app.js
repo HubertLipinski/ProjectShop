@@ -25,6 +25,7 @@ Vue.use(ElementUI, { locale });
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('product-list', require('./Components/ProductList.vue').default);
+Vue.component('cart-indicator', require('./Components/CartIndicator.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
